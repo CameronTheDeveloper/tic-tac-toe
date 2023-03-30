@@ -37,14 +37,14 @@
     padding: 8px;
 }
 
-#ttt-board .board-squares {
+#ttt-board #board-squares {
     display: grid;
     height: 500px;
     width: 500px;
     grid-template: repeat(3, 1fr)/repeat(3, 1fr);
 }
 
-#ttt-board .col {
+#board-squares>* {
     background-color: rgb(255, 255, 255);
     border: 1px solid black;
 }
