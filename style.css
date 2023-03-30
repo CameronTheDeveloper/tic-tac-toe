@@ -41,8 +41,6 @@
 
 }
 
-
-
 #ttt-board #board-squares {
     display: grid;
     height: 100%;
@@ -55,9 +53,8 @@
     background-color: rgb(255, 255, 255);
     border: 1px solid black;
     cursor: pointer;
-    font-size: 9rem;
+    font-size: 8rem;
     padding: 0;
-
     display: grid;
     justify-content: center;
     align-items: center;
@@ -65,5 +62,5 @@
 
 
 #board-squares .col:hover {
-    background-color: rgb(235, 255, 80);
+    background-color: rgb(255, 205, 131);
 }
