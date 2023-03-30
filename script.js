@@ -1,4 +1,4 @@
-let board = (function () {
+const board = (function () {
     const boardAr = [];
     const boardSquares = document.querySelector('#board-squares');
     const createBoard = () => {
@@ -14,5 +14,11 @@ let board = (function () {
     return { createBoard };
 })();
 
-board.createBoard();
+const player = (symbol) => {
+    return {
+        symbol
+    };
+};
 
+const player1 = player('X');
+board.createBoard();
