@@ -24,26 +24,31 @@
     justify-items: center;
     grid-template-rows: 1fr 7fr;
     margin: 30px;
+    width: 500px;
+
+    border: 1px solid black;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
 }
 
 #ttt-board .board-title {
     font-size: 3.5rem;
-    border-top: 2px solid black;
-    border-right: 2px solid black;
-    border-left: 2px solid black;
-    padding: 8px;
+    /* border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black; */
+    text-align: center;
+    width: 100%;
+
 }
 
-#board-squares {
-    padding: 0;
-    margin: 0;
-}
+
 
 #ttt-board #board-squares {
     display: grid;
-    height: 500px;
-    width: 500px;
+    height: 100%;
+    width: 100%;
     grid-template: repeat(3, 1fr)/repeat(3, 1fr);
+
 }
 
 #board-squares .col {
@@ -52,7 +57,7 @@
     cursor: pointer;
     font-size: 9rem;
     padding: 0;
-    margin: 0;
+
     display: grid;
     justify-content: center;
     align-items: center;
