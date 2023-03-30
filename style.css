@@ -23,17 +23,14 @@
     justify-self: center;
     justify-items: center;
     grid-template-rows: 1fr 7fr;
-    grid-template-columns: 1fr;
     margin: 30px;
 }
 
 #ttt-board .board-title {
-    align-self: center;
     font-size: 3.5rem;
     border-top: 2px solid black;
     border-right: 2px solid black;
     border-left: 2px solid black;
-    grid-column: 1/-1;
     padding: 8px;
 }
 
@@ -44,7 +41,11 @@
     grid-template: repeat(3, 1fr)/repeat(3, 1fr);
 }
 
-#board-squares>* {
+#board-squares .col {
     background-color: rgb(255, 255, 255);
     border: 1px solid black;
+}
+
+#board-squares .col:hover {
+    background-color: rgb(235, 255, 80);
 }
