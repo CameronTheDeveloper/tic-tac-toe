@@ -31,13 +31,14 @@
     border-top-left-radius: 12px;
 }
 
-#ttt-board .board-title {
+#ttt-board #board-title {
     font-size: 3.5rem;
     /* border-top: 1px solid black;
     border-right: 1px solid black;
     border-left: 1px solid black; */
     text-align: center;
     width: 100%;
+    padding: 4px;
 
 }
 

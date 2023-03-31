@@ -39,6 +39,7 @@ const checkWin = (boardAr) => {
 const board = (function () {
     const boardAr = [];
     const boardSquares = document.querySelector('#board-squares');
+    const boardTitle = document.querySelector('#board-title');      // Board title
     let playerTurn = 'O';
     let win = false;        //For check win
     const createBoard = () => {
@@ -53,9 +54,12 @@ const board = (function () {
                         playerTurn = markBoard(col, playerTurn);
                         win = checkWin(boardAr);
                     }
+                    if (win) {        //If a player wins
+                        boardTitle.innerHTML = "Player " + "'" + playerTurn + "'" + ' Wins!';
+                        boardTitle.style.color = "#22008b";
+                        boardTitle.style.fontWeight = "700";
+                    }
 
-                    //Check win
-                    //
                 });
                 const markBoard = (col, playerTurn) => {
                     if (playerTurn == 'X' || playerTurn == null) {
