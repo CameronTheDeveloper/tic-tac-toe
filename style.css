@@ -8,12 +8,17 @@
     justify-content: center;
     align-items: center;
     background-color: rgb(255, 171, 45);
-    height: 100px;
-    font-size: 40px;
+    font-size: 1.8rem;
+    grid-column: 1/4;
+    /* height: 100px;
+    font-size: 40px; */
 }
 
 .container {
     display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2fr 11fr;
+
 }
 
 /* Tic-Tac-Toe board */
@@ -29,6 +34,7 @@
     border: 1px solid black;
     border-top-right-radius: 12px;
     border-top-left-radius: 12px;
+    grid-column: 2/3;
 }
 
 #ttt-board #board-title {
@@ -64,4 +70,28 @@
 
 #board-squares .col:hover {
     background-color: rgb(255, 205, 131);
+}
+
+#ttt-board,
+#play-again-button {
+    grid-row: 2/3;
+    margin-top: 30px;
+}
+
+/* Play again button */
+#play-again-button {
+    grid-column: 3/4;
+
+}
+
+
+#play-again-button button {
+    padding: 16px;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    background-color: #ae93ff;
+    font-weight: 700;
+    cursor: pointer;
+
+
 }
