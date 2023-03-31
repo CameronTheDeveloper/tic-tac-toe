@@ -42,6 +42,7 @@ const board = (function () {
     const boardTitle = document.querySelector('#board-title');      // Board title
     let playerTurn = 'O';
     let win = false;        //For check win
+    let turnCount = 0;
     const createBoard = () => {
         for (let i = 1; i <= 3; i++) {
             for (let j = 1; j <= 3; j++) {
@@ -53,11 +54,15 @@ const board = (function () {
                     if (col.innerHTML == '' && win == false) {
                         playerTurn = markBoard(col, playerTurn);
                         win = checkWin(boardAr);
+                        turnCount++;
                     }
                     if (win) {        //If a player wins
                         boardTitle.innerHTML = "Player " + "'" + playerTurn + "'" + ' Wins!';
                         boardTitle.style.color = "#22008b";
                         boardTitle.style.fontWeight = "700";
+                    }
+                    else if (turnCount >= 9) {
+                        boardTitle.innerHTML = 'Draw!';
                     }
 
                 });
