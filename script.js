@@ -1,24 +1,3 @@
-const playGame = () => {
-    board.createBoard();
-
-    const player1 = player('X');        //Also input player names
-    const player2 = player('O');
-    //renderBoard(boardAr);
-
-
-    //return;
-};
-
-
-const renderBoard = (boardAr) => {
-
-    const square = document.querySelectorAll('.col');
-    for (i = 0; i < boardAr.length; i++) {
-        square[i].innerHTML = boardAr[i];
-        console.log("Work");
-    }
-};
-
 const player = (symbol) => {
     //let name = 
     return {
@@ -26,32 +5,12 @@ const player = (symbol) => {
     };
 };
 
-//let result = 'play';
-const checkWin = (boardAr) => {
-    //Check by row
-    for (let i = 0; i < 9; i += 3) {
-        if (boardAr[i] !== '' && boardAr[i] === boardAr[i + 1] && boardAr[i + 1] === boardAr[i + 2]) {
-            return true;
-        }
-    }
-    //Check by column
-    for (let j = 0; j < 3; j++) {
-        if (boardAr[j] !== '' && boardAr[j] === boardAr[j + 3] && boardAr[j + 3] === boardAr[j + 6]) {
-            return true;
-        }
-    }
-    console.log("check");
-    if (boardAr[0] !== '' && boardAr[0] === boardAr[4] && boardAr[4] === boardAr[8]) {
-        console.log("win");
-        return true;
-    }
 
-    if (boardAr[2] !== '' && boardAr[2] === boardAr[4] && boardAr[4] === boardAr[6]) {
-        console.log("win");
-        return true;
-    }
-    return false;
-};
+// const eraseBoard = (boardAr) => {
+//     for (i = 0; i < boardAr.length; i++) {
+//         boardAr[i] = '';
+//     }
+// };
 
 
 const board = (function () {
@@ -65,57 +24,77 @@ const board = (function () {
     const createBoard = () => {
         for (let i = 1; i <= 3; i++) {
             for (let j = 1; j <= 3; j++) {
-                const col = document.createElement('div');
-                col.classList.add('col');
-                boardSquares.appendChild(col);
-                boardAr.push(col);    //Add column to array     -- Change this to add X or O to array. Also mark board function changes
-
-                // const markBoard = (col, playerTurn) => {
-                //     if (playerTurn == 'X' || playerTurn == null) {
-                //         playerTurn = 'O';
-                //     } else {
-                //         playerTurn = 'X';
-                //     }
-
-                //     col.innerHTML = playerTurn;         //X or O
-                //     return playerTurn;
-                // };
+                const square = document.createElement('div');
+                square.classList.add('square');
+                boardSquares.appendChild(square);
             }
         }
     };
 
-    const hover = () => {   //
-        console.log("Happened");
+    const renderBoard = (boardAr, square) => {
+        for (i = 0; i < boardAr.length; i++) {
+            square[i].innerHTML = boardAr[i];
+        }
     };
 
-    const addSquareClickEvents = (boardAr) => {
-        let square = document.querySelectorAll('.col');
-        console.log("Click");
-        boardAr.forEach(function (square) {
-            square.addEventListener('click', () => {
-                if (square.innerHTML == '' && win == false) {
-                    playerTurn = markBoard(square, playerTurn);
-                    win = checkWin(boardAr);
-                    turnCount++;
-                }
-                if (win) {        //If a player wins
-                    boardTitle.innerHTML = "Player " + "'" + playerTurn + "'" + ' Wins!';
-                    boardTitle.style.color = "#22008b";
-                    boardTitle.style.fontWeight = "700";
-                }
-                else if (turnCount >= 9) {
-                    boardTitle.innerHTML = 'Draw!';
-                }
-            });
 
+    //let square = document.querySelectorAll('.square');
+    boardAr.forEach(function (square) {
+        square.addEventListener('click', () => {
+            if (square.innerHTML == '' && win == false) {
+                playerTurn = markBoard(square, playerTurn);
+                win = checkWin(boardAr);
+                turnCount++;
+            }
+            if (win) {        //If a player wins
+                boardTitle.innerHTML = "Player " + "'" + playerTurn + "'" + ' Wins!';
+                boardTitle.style.color = "#22008b";
+                boardTitle.style.fontWeight = "700";
+            }
+            else if (turnCount >= 9) {
+                boardTitle.innerHTML = 'Draw!';
+            }
         });
+
+    });
+
+    //let result = 'play';
+    const checkWin = (boardAr) => {
+        //Check by row
+        for (let i = 0; i < 9; i += 3) {
+            if (boardAr[i] !== '' && boardAr[i] === boardAr[i + 1] && boardAr[i + 1] === boardAr[i + 2]) {
+                return true;
+            }
+        }
+        //Check by column
+        for (let j = 0; j < 3; j++) {
+            if (boardAr[j] !== '' && boardAr[j] === boardAr[j + 3] && boardAr[j + 3] === boardAr[j + 6]) {
+                return true;
+            }
+        }
+        console.log("check");
+        if (boardAr[0] !== '' && boardAr[0] === boardAr[4] && boardAr[4] === boardAr[8]) {
+            console.log("win");
+            return true;
+        }
+
+        if (boardAr[2] !== '' && boardAr[2] === boardAr[4] && boardAr[4] === boardAr[6]) {
+            console.log("win");
+            return true;
+        }
+        return false;
     };
 
-
-    return { createBoard, boardAr };
+    return { createBoard, boardAr, renderBoard, checkWin };
 })();
 
-
-//playGame(player1, player2);
-playGame();
-
+const playGame = (function () {
+    board.createBoard();
+    const boardAr = board.boardAr;
+    const square = document.querySelectorAll('.square');   //
+    const player1 = player('X');        //Also input player names
+    const player2 = player('O');
+    let win = board.checkWin(boardAr);
+    //while/if win == false
+    board.renderBoard(boardAr, square);
+})();

@@ -45,7 +45,6 @@
     text-align: center;
     width: 100%;
     padding: 4px;
-
 }
 
 #ttt-board #board-squares {
@@ -56,7 +55,7 @@
 
 }
 
-#board-squares .col {
+#board-squares .square {
     background-color: rgb(255, 255, 255);
     border: 1px solid black;
     cursor: pointer;
@@ -68,7 +67,7 @@
 }
 
 
-#board-squares .col:hover {
+#board-squares .square:hover {
     background-color: rgb(255, 205, 131);
 }
 
@@ -81,9 +80,7 @@
 /* Play again button */
 #play-again-button {
     grid-column: 3/4;
-
 }
-
 
 #play-again-button button {
     padding: 16px;
@@ -92,6 +89,4 @@
     background-color: #ae93ff;
     font-weight: 700;
     cursor: pointer;
-
-
 }
