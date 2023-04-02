@@ -1,13 +1,22 @@
 const playGame = () => {
     board.createBoard();
 
+    const player1 = player('X');        //Also input player names
+    const player2 = player('O');
+    //renderBoard(boardAr);
 
-
-    // const player1 = player('X');
-    // const player2 = player('O');
-    // const playerTurn = true;        //Sw
 
     //return;
+};
+
+
+const renderBoard = (boardAr) => {
+
+    const square = document.querySelectorAll('.col');
+    for (i = 0; i < boardAr.length; i++) {
+        square[i].innerHTML = boardAr[i];
+        console.log("Work");
+    }
 };
 
 const player = (symbol) => {
@@ -103,12 +112,10 @@ const board = (function () {
     };
 
 
-    return { createBoard };
+    return { createBoard, boardAr };
 })();
 
 
-
-//playGame();
-
 //playGame(player1, player2);
 playGame();
+
