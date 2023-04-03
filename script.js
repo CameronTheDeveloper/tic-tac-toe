@@ -6,17 +6,10 @@ const player = (symbol) => {
     };
 };
 
-
-// const eraseBoard = (boardAr) => {
-//     for (i = 0; i < boardAr.length; i++) {
-//         boardAr[i] = '';
-//     }
-// };
-
-
 const board = (function () {
-    const boardAr = ['', '', '', '', '', '', '', '', ''];
+    let boardAr = ['', '', '', '', '', '', '', '', ''];
     const boardSquares = document.querySelector('#board-squares');
+    const boardTitle = document.querySelector('#board-title');
 
     const createBoard = () => {
         for (let i = 0; i < 9; i++) {
@@ -28,6 +21,12 @@ const board = (function () {
 
     };
 
+    const eraseBoard = (boardAr) => {
+        for (i = 0; i < boardAr.length; i++) {
+            boardAr[i] = '';
+        }
+        return boardAr;
+    };
 
     const markBoardAr = (boardAr, index, playerSymbol) => {
         boardAr[index] = playerSymbol;
@@ -87,11 +86,27 @@ const board = (function () {
         }
     };
 
+    const boardTitleChange = (winner, condition) => {
+        if (condition == 0) {   // Reset board title
+            boardTitle.innerHTML = winner;
+        }
+        else if (condition == 1) {  // If someone wins
+            boardTitle.innerHTML = winner + ' Wins!';
+            boardTitle.style.color = "#22008b";
+            boardTitle.style.fontWeight = "700";
+        }
+        else if (condition == 2) {   // Draw
+            boardTitle.innerHTML = winner;
+        }
+    };
 
-    return { createBoard, boardAr, renderBoard, checkWin, markBoardAr, changeTurn, getWinner };
+
+
+    return { createBoard, boardAr, renderBoard, checkWin, markBoardAr, changeTurn, getWinner, eraseBoard, boardTitleChange };
 })();
 
 const playGame = (function () {
+    const playAgainButton = document.querySelector('#play-again-button');
     board.createBoard();
     let boardAr = board.boardAr;
     const boardTitle = document.querySelector('#board-title');      // Board title will display winner
@@ -116,14 +131,22 @@ const playGame = (function () {
             }
             if (win) {
                 winner = board.getWinner(player1, player2, symbol);
-                boardTitle.innerHTML = winner + ' Wins!';
-                boardTitle.style.color = "#22008b";
-                boardTitle.style.fontWeight = "700";
+                board.boardTitleChange(winner, 1);
+                playAgainButton.style.display = "block";
             }
             else if (turnCount >= 9) {
-                boardTitle.innerHTML = 'Draw!';
+                board.boardTitleChange('Draw!', 2);
+                playAgainButton.style.display = "block";
             }
         });
+    });
 
+    playAgainButton.addEventListener('click', () => {
+        boardAr = board.eraseBoard(boardAr);            //eraseBoard needs to run the play
+        board.renderBoard(boardAr, square);
+        playAgainButton.style.display = "none";
+        board.boardTitleChange('Tic-Tac-Toe', 0);
+
+        //playGame();
     });
 })();

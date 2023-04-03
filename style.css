@@ -80,6 +80,7 @@
 /* Play again button */
 #play-again-button {
     grid-column: 3/4;
+    display: none;
 }
 
 #play-again-button button {
