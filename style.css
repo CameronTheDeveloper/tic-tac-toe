@@ -22,6 +22,11 @@
     height: 100vh;
 }
 
+/* Player form */
+#player-form form {
+    display: grid;
+}
+
 /* Tic-Tac-Toe board */
 
 #ttt-board {
