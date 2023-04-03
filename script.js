@@ -100,16 +100,13 @@ const board = (function () {
         }
     };
 
-
-
     return { createBoard, boardAr, renderBoard, checkWin, markBoardAr, changeTurn, getWinner, eraseBoard, boardTitleChange };
 })();
 
 const playGame = (function () {
-    const playAgainButton = document.querySelector('#play-again-button');
     board.createBoard();
+    const playAgainButton = document.querySelector('#play-again-button');
     let boardAr = board.boardAr;
-    const boardTitle = document.querySelector('#board-title');      // Board title will display winner
     const square = document.querySelectorAll('.square');
     const player1 = player('X');
     const player2 = player('O');
@@ -133,10 +130,14 @@ const playGame = (function () {
                 winner = board.getWinner(player1, player2, symbol);
                 board.boardTitleChange(winner, 1);
                 playAgainButton.style.display = "block";
+                turnCount = 0;
+                win = false;
             }
             else if (turnCount >= 9) {
                 board.boardTitleChange('Draw!', 2);
                 playAgainButton.style.display = "block";
+                turnCount = 0;
+                win = false;
             }
         });
     });
@@ -146,7 +147,6 @@ const playGame = (function () {
         board.renderBoard(boardAr, square);
         playAgainButton.style.display = "none";
         board.boardTitleChange('Tic-Tac-Toe', 0);
-
         //playGame();
     });
 })();
