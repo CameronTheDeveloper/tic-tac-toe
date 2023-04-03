@@ -43,12 +43,12 @@ const board = (function () {
         return square;
     };
 
-    const changeTurn = (symbol) => {
-        if (symbol == 'X') {
-            return 'O';
+    const changeTurn = (player1, player2, symbol) => {
+        if (player1.symbol == symbol) {
+            return player2.symbol;
         }
         else {
-            return 'X';
+            return player1.symbol;
         }
     };
 
@@ -78,6 +78,7 @@ const board = (function () {
         return false;
     };
 
+
     return { createBoard, boardAr, renderBoard, checkWin, markBoardAr, changeTurn };
 })();
 
@@ -86,25 +87,26 @@ const playGame = (function () {
     let boardAr = board.boardAr;
     const boardTitle = document.querySelector('#board-title');      // Board title will display winner
     const square = document.querySelectorAll('.square');
-    const player1 = player('X');        //Also input player names
+    const player1 = player('X');
     const player2 = player('O');
     let win = false;
     let turnCount = 0;
-    let symbol = player1.symbol;
+    let symbol = player2.symbol;
+    let winner = '';
     board.renderBoard(boardAr, square);
     square.forEach((element) => {
         element.addEventListener('click', () => {
             console.log(element);
             let index = element.getAttribute('index');
             if (element.innerHTML == '' && win == false) {
+                symbol = board.changeTurn(player1, player2, symbol);
                 boardAr = board.markBoardAr(boardAr, index, symbol); //Mark board Array
-                symbol = board.changeTurn(symbol);
-                board.renderBoard(boardAr, square);         //Render board after mark
+                board.renderBoard(boardAr, square);                  //Render board after mark
                 win = board.checkWin(boardAr);
                 turnCount++;
             }
             if (win) {        //If a player wins
-                boardTitle.innerHTML = "Player " + "'" + player1.name + "'" + ' Wins!';
+                boardTitle.innerHTML = symbol + "'" + ' Wins!';
                 boardTitle.style.color = "#22008b";
                 boardTitle.style.fontWeight = "700";
             }
