@@ -24,8 +24,25 @@
 
 /* Player form */
 #player-form form {
+    justify-content: end;
     display: grid;
 }
+
+#player-form form label {
+    margin-top: 12px;
+    margin-bottom: 3px;
+}
+
+#player-form form input {
+    padding: 5px;
+    border-radius: 5px;
+    width: 225px;
+}
+
+#player-form form input:hover {
+    background-color: rgb(255, 229, 195);
+}
+
 
 /* Tic-Tac-Toe board */
 
