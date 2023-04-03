@@ -43,6 +43,15 @@ const board = (function () {
         return square;
     };
 
+    const changeTurn = (symbol) => {
+        if (symbol == 'X') {
+            return 'O';
+        }
+        else {
+            return 'X';
+        }
+    };
+
     //let result = 'play';
     const checkWin = (boardAr) => {
         //Check by row
@@ -69,7 +78,7 @@ const board = (function () {
         return false;
     };
 
-    return { createBoard, boardAr, renderBoard, checkWin, markBoardAr };
+    return { createBoard, boardAr, renderBoard, checkWin, markBoardAr, changeTurn };
 })();
 
 const playGame = (function () {
@@ -81,21 +90,21 @@ const playGame = (function () {
     const player2 = player('O');
     let win = false;
     let turnCount = 0;
-
+    let symbol = player1.symbol;
     board.renderBoard(boardAr, square);
     square.forEach((element) => {
         element.addEventListener('click', () => {
             console.log(element);
             let index = element.getAttribute('index');
-            //the markboard 2nd parameter needs to be the boardAr index matching with the square index of the element
             if (element.innerHTML == '' && win == false) {
-                boardAr = board.markBoardAr(boardAr, index, player1.symbol); //Mark board Array
+                boardAr = board.markBoardAr(boardAr, index, symbol); //Mark board Array
+                symbol = board.changeTurn(symbol);
                 board.renderBoard(boardAr, square);         //Render board after mark
                 win = board.checkWin(boardAr);
                 turnCount++;
             }
             if (win) {        //If a player wins
-                boardTitle.innerHTML = "Player " + "'" + playerTurn + "'" + ' Wins!';
+                boardTitle.innerHTML = "Player " + "'" + player1.name + "'" + ' Wins!';
                 boardTitle.style.color = "#22008b";
                 boardTitle.style.fontWeight = "700";
             }
