@@ -78,8 +78,17 @@ const board = (function () {
         return false;
     };
 
+    const getWinner = (player1, player2, symbol) => {
+        if (player1.symbol == symbol) {
+            return player1.name;
+        }
+        else {
+            return player2.name;
+        }
+    };
 
-    return { createBoard, boardAr, renderBoard, checkWin, markBoardAr, changeTurn };
+
+    return { createBoard, boardAr, renderBoard, checkWin, markBoardAr, changeTurn, getWinner };
 })();
 
 const playGame = (function () {
@@ -105,8 +114,9 @@ const playGame = (function () {
                 win = board.checkWin(boardAr);
                 turnCount++;
             }
-            if (win) {        //If a player wins
-                boardTitle.innerHTML = symbol + "'" + ' Wins!';
+            if (win) {
+                winner = board.getWinner(player1, player2, symbol);
+                boardTitle.innerHTML = winner + ' Wins!';
                 boardTitle.style.color = "#22008b";
                 boardTitle.style.fontWeight = "700";
             }
