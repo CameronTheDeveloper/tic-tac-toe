@@ -18,7 +18,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2fr 11fr;
-
+    background-color: #efefef;
+    height: 100vh;
 }
 
 /* Tic-Tac-Toe board */
