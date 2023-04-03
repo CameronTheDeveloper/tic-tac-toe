@@ -15,38 +15,32 @@ const player = (symbol) => {
 
 
 const board = (function () {
-    const boardAr = [];
+    const boardAr = ['', '', '', '', '', '', '', '', ''];
     const boardSquares = document.querySelector('#board-squares');
-    const boardTitle = document.querySelector('#board-title');      // Board title will display winner
-    let playerTurn = 'O';
-    let win = false;        //For check win
-    let turnCount = 0;
-    //addSquareClickEvents(boardAr); //
+
     const createBoard = () => {
-        for (let i = 1; i <= 3; i++) {
-            for (let j = 1; j <= 3; j++) {
-                const square = document.createElement('div');
-                square.classList.add('square');
-                boardSquares.appendChild(square);
-            }
+        for (let i = 0; i < 9; i++) {
+            const square = document.createElement('div');
+            square.classList.add('square');
+            square.setAttribute('index', i);
+            boardSquares.appendChild(square);
         }
+
+    };
+
+
+    const markBoardAr = (boardAr, index, playerSymbol) => {
+        boardAr[index] = playerSymbol;
+        console.log(boardAr[index]);
+        console.log(index);
+        return boardAr;
     };
 
     const renderBoard = (boardAr, square) => {
-        for (i = 0; i < boardAr.length; i++) {
+        for (i = 0; i < boardAr.length && i < square.length; i++) {
             square[i].innerHTML = boardAr[i];
         }
-    };
-
-
-    const markBoard = (boardAr, index, playerSymbol) => {
-        //boardAr[] == player.symbol
-
-        if (playerSymbol == 'X') {
-            return 'O';
-        } else {
-            return 'X';
-        }
+        return square;
     };
 
     //let result = 'play';
@@ -63,7 +57,6 @@ const board = (function () {
                 return true;
             }
         }
-        console.log("check");
         if (boardAr[0] !== '' && boardAr[0] === boardAr[4] && boardAr[4] === boardAr[8]) {
             console.log("win");
             return true;
@@ -76,26 +69,27 @@ const board = (function () {
         return false;
     };
 
-    return { createBoard, boardAr, renderBoard, checkWin };
+    return { createBoard, boardAr, renderBoard, checkWin, markBoardAr };
 })();
 
 const playGame = (function () {
     board.createBoard();
-    const boardAr = board.boardAr;
-    const square = document.querySelectorAll('.square');   //
+    let boardAr = board.boardAr;
+    const boardTitle = document.querySelector('#board-title');      // Board title will display winner
+    const square = document.querySelectorAll('.square');
     const player1 = player('X');        //Also input player names
     const player2 = player('O');
-    let win = board.checkWin(boardAr);
+    let win = false;
     let turnCount = 0;
-    //while/if win == false
 
-
-    //let square = document.querySelectorAll('.square');
-    boardAr.forEach(function (square) {
-        square.addEventListener('click', () => {
-            if (square.innerHTML == '' && win == false) {
-                console.log("Click");
-                playerTurn = markBoard(boardAr, square,); //Mark board Array
+    board.renderBoard(boardAr, square);
+    square.forEach((element) => {
+        element.addEventListener('click', () => {
+            console.log(element);
+            let index = element.getAttribute('index');
+            //the markboard 2nd parameter needs to be the boardAr index matching with the square index of the element
+            if (element.innerHTML == '' && win == false) {
+                boardAr = board.markBoardAr(boardAr, index, player1.symbol); //Mark board Array
                 board.renderBoard(boardAr, square);         //Render board after mark
                 win = board.checkWin(boardAr);
                 turnCount++;
