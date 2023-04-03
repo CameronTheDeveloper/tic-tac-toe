@@ -1,7 +1,8 @@
 const player = (symbol) => {
-    //let name = 
+    let name = prompt("Enter player " + symbol + "'s name: ");
     return {
-        symbol
+        symbol,
+        name
     };
 };
 
@@ -38,25 +39,15 @@ const board = (function () {
     };
 
 
-    //let square = document.querySelectorAll('.square');
-    boardAr.forEach(function (square) {
-        square.addEventListener('click', () => {
-            if (square.innerHTML == '' && win == false) {
-                playerTurn = markBoard(square, playerTurn);
-                win = checkWin(boardAr);
-                turnCount++;
-            }
-            if (win) {        //If a player wins
-                boardTitle.innerHTML = "Player " + "'" + playerTurn + "'" + ' Wins!';
-                boardTitle.style.color = "#22008b";
-                boardTitle.style.fontWeight = "700";
-            }
-            else if (turnCount >= 9) {
-                boardTitle.innerHTML = 'Draw!';
-            }
-        });
+    const markBoard = (boardAr, index, playerSymbol) => {
+        //boardAr[] == player.symbol
 
-    });
+        if (playerSymbol == 'X') {
+            return 'O';
+        } else {
+            return 'X';
+        }
+    };
 
     //let result = 'play';
     const checkWin = (boardAr) => {
@@ -95,6 +86,29 @@ const playGame = (function () {
     const player1 = player('X');        //Also input player names
     const player2 = player('O');
     let win = board.checkWin(boardAr);
+    let turnCount = 0;
     //while/if win == false
-    board.renderBoard(boardAr, square);
+
+
+    //let square = document.querySelectorAll('.square');
+    boardAr.forEach(function (square) {
+        square.addEventListener('click', () => {
+            if (square.innerHTML == '' && win == false) {
+                console.log("Click");
+                playerTurn = markBoard(boardAr, square,); //Mark board Array
+                board.renderBoard(boardAr, square);         //Render board after mark
+                win = board.checkWin(boardAr);
+                turnCount++;
+            }
+            if (win) {        //If a player wins
+                boardTitle.innerHTML = "Player " + "'" + playerTurn + "'" + ' Wins!';
+                boardTitle.style.color = "#22008b";
+                boardTitle.style.fontWeight = "700";
+            }
+            else if (turnCount >= 9) {
+                boardTitle.innerHTML = 'Draw!';
+            }
+        });
+
+    });
 })();
