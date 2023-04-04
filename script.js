@@ -1,8 +1,8 @@
-const player = (symbol) => {
-    let name = prompt("Enter player " + symbol + "'s name: ");
+const player = (name, symbol) => {
+
     return {
-        symbol,
-        name
+        name,
+        symbol
     };
 };
 
@@ -30,8 +30,6 @@ const board = (function () {
 
     const markBoardAr = (boardAr, index, playerSymbol) => {
         boardAr[index] = playerSymbol;
-        console.log(boardAr[index]);
-        console.log(index);
         return boardAr;
     };
 
@@ -66,12 +64,10 @@ const board = (function () {
             }
         }
         if (boardAr[0] !== '' && boardAr[0] === boardAr[4] && boardAr[4] === boardAr[8]) {
-            console.log("win");
             return true;
         }
 
         if (boardAr[2] !== '' && boardAr[2] === boardAr[4] && boardAr[4] === boardAr[6]) {
-            console.log("win");
             return true;
         }
         return false;
@@ -106,10 +102,11 @@ const board = (function () {
 const playGame = (function () {
     board.createBoard();
     const playAgainButton = document.querySelector('#play-again-button');
+    const playerForm = document.querySelector("#player-form");
     let boardAr = board.boardAr;
     const square = document.querySelectorAll('.square');
-    const player1 = player('X');
-    const player2 = player('O');
+    const player1 = player('X', 'X');
+    const player2 = player('O', 'O');
     let win = false;
     let turnCount = 0;
     let symbol = player2.symbol;
@@ -117,7 +114,6 @@ const playGame = (function () {
     board.renderBoard(boardAr, square);
     square.forEach((element) => {
         element.addEventListener('click', () => {
-            console.log(element);
             let index = element.getAttribute('index');
             if (element.innerHTML == '' && win == false) {
                 symbol = board.changeTurn(player1, player2, symbol);
@@ -142,11 +138,17 @@ const playGame = (function () {
         });
     });
 
+    playerForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        player1.name = document.getElementById('playerX-name').value;
+        player2.name = document.getElementById('playerO-name').value;
+        event.target.reset();
+    });
+
     playAgainButton.addEventListener('click', () => {
-        boardAr = board.eraseBoard(boardAr);            //eraseBoard needs to run the play
+        boardAr = board.eraseBoard(boardAr);
         board.renderBoard(boardAr, square);
         playAgainButton.style.display = "none";
         board.boardTitleChange('Tic-Tac-Toe', 0);
-        //playGame();
     });
 })();
