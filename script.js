@@ -127,13 +127,11 @@ const playGame = (function () {
                 board.boardTitleChange(winner, 1);
                 playAgainButton.style.display = "block";
                 turnCount = 0;
-                win = false;
             }
             else if (turnCount >= 9) {
                 board.boardTitleChange('Draw!', 2);
                 playAgainButton.style.display = "block";
                 turnCount = 0;
-                win = false;
             }
         });
     });
@@ -150,5 +148,6 @@ const playGame = (function () {
         board.renderBoard(boardAr, square);
         playAgainButton.style.display = "none";
         board.boardTitleChange('Tic-Tac-Toe', 0);
+        win = false;
     });
 })();
